@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/**)",
+      "Bash(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh)",
+      "Bash(bash)",
+      "Bash(export NVM_DIR=\"$HOME/.nvm\")",
+      "Bash(. \"$NVM_DIR/nvm.sh\")",
+      "Bash(npm --version)",
+      "Bash(docker --version)",
+      "Bash(curl -L \"https://fastdl.mongodb.org/osx/mongodb-macos-arm64-8.0.9.tgz\" -o /tmp/mongodb.tgz)",
+      "Bash(tar -xzf /tmp/mongodb.tgz -C /tmp)",
+      "Read(//tmp/mongodb-macos-arm64-8.0.9/**)",
+      "Read(//private/tmp/**)"
+    ]
+  }
+}

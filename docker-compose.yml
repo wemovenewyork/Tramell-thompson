@@ -1,0 +1,24 @@
+services:
+  by-lolita-with-love:
+    build: .
+    image: by-lolita-with-love:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  # Uncomment to add a database:
+  # db:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_DB: by-lolita-with-love
+  #     POSTGRES_USER: app
+  #     POSTGRES_PASSWORD: changeme
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+
+# volumes:
+#   pgdata:

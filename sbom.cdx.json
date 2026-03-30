@@ -1,0 +1,107 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-03-26T20:17:46.440Z",
+    "component": {
+      "type": "application",
+      "name": "By Lolita with Love",
+      "version": "0.0.1"
+    },
+    "tools": [
+      {
+        "vendor": "Gauntlet Forge",
+        "name": "sbom-scanner",
+        "version": "1.0.0"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "axios",
+      "version": "1.7.0",
+      "purl": "pkg:npm/axios@1.7.0",
+      "scope": "required"
+    },
+    {
+      "type": "library",
+      "name": "express",
+      "version": "4.17.1",
+      "purl": "pkg:npm/express@4.17.1",
+      "scope": "required"
+    },
+    {
+      "type": "library",
+      "name": "mongodb",
+      "version": "3.6.4",
+      "purl": "pkg:npm/mongodb@3.6.4",
+      "scope": "required"
+    },
+    {
+      "type": "library",
+      "name": "mongoose",
+      "version": "latest",
+      "purl": "pkg:npm/mongoose@latest",
+      "scope": "required"
+    },
+    {
+      "type": "library",
+      "name": "react",
+      "version": "17.0.2",
+      "purl": "pkg:npm/react@17.0.2",
+      "scope": "required"
+    },
+    {
+      "type": "library",
+      "name": "react-dom",
+      "version": "17.0.2",
+      "purl": "pkg:npm/react-dom@17.0.2",
+      "scope": "required"
+    },
+    {
+      "type": "library",
+      "name": "@testing-library/react",
+      "version": "16.0.0",
+      "purl": "pkg:npm/@testing-library%2Freact@16.0.0",
+      "scope": "dev"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "FORGE-axios-medium",
+      "source": {
+        "name": "Gauntlet Forge SBOM Scanner"
+      },
+      "ratings": [
+        {
+          "severity": "medium"
+        }
+      ],
+      "description": "SSRF vulnerability via server-side requests",
+      "affects": [
+        {
+          "ref": "axios"
+        }
+      ]
+    },
+    {
+      "id": "FORGE-express-medium",
+      "source": {
+        "name": "Gauntlet Forge SBOM Scanner"
+      },
+      "ratings": [
+        {
+          "severity": "medium"
+        }
+      ],
+      "description": "Open redirect vulnerability",
+      "affects": [
+        {
+          "ref": "express"
+        }
+      ]
+    }
+  ]
+}
