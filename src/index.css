@@ -61,7 +61,6 @@ nav.scrolled { padding: 12px 60px; background: rgba(10,22,40,0.97); border-botto
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .hero-photo {
   position: absolute; inset: 0;
-  background-image: url('/images/img_00.jpg');
   background-size: cover; background-position: center top;
   transform: scale(1.05); transition: transform 1.5s ease-out;
 }

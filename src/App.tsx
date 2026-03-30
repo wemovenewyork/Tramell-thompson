@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './index.css';
 
+import heroImg from './assets/img_00.jpg';
+import bioBgImg from './assets/img_01.png';
+import bioPortraitImg from './assets/img_02.jpg';
+import gallery0 from './assets/img_03.jpg';
+import gallery1 from './assets/img_04.png';
+import gallery2 from './assets/img_05.jpg';
+import blog0 from './assets/img_06.png';
+import blog1 from './assets/img_07.jpg';
+import blog2 from './assets/img_08.jpg';
+
 // ── HOOKS ──────────────────────────────────────────────────────────────────
 
 function useReveal() {
@@ -117,7 +127,7 @@ function Hero({ loaded }: { loaded: boolean }) {
 
   return (
     <section className={`hero${loaded ? ' loaded' : ''}`} id="home" role="banner">
-      <div className="hero-photo" />
+      <div className="hero-photo" style={{ backgroundImage: `url(${heroImg})` }} />
       <div className="hero-overlay" />
       <div className="hero-vignette" />
       <div className="hero-content">
@@ -185,10 +195,10 @@ function Bio() {
 
   return (
     <section className="bio parallax-section" id="bio">
-      <div ref={bgRef} className="parallax-bg" style={{ backgroundImage: "url('/images/img_01.png')" }} />
+      <div ref={bgRef} className="parallax-bg" style={{ backgroundImage: `url(${bioBgImg})` }} />
       <div className="bio-grid">
         <div className="bio-image-wrap reveal">
-          <img src="/images/img_02.jpg" alt="Tramell Thompson" className="bio-image" />
+          <img src={bioPortraitImg} alt="Tramell Thompson" className="bio-image" />
         </div>
         <div className="bio-text reveal">
           <p className="section-label">About</p>
@@ -219,9 +229,9 @@ function Bio() {
 // ── GALLERY ───────────────────────────────────────────────────────────────
 
 const galleryImages = [
-  { src: '/images/img_03.jpg', title: 'The Advocate', caption: 'NYC streets — ready for action' },
-  { src: '/images/img_04.png', title: 'The Strategist', caption: 'Behind the scenes at events' },
-  { src: '/images/img_05.jpg', title: 'The Community', caption: 'Fighting for working people' },
+  { src: gallery0, title: 'The Advocate', caption: 'NYC streets — ready for action' },
+  { src: gallery1, title: 'The Strategist', caption: 'Behind the scenes at events' },
+  { src: gallery2, title: 'The Community', caption: 'Fighting for working people' },
 ];
 
 function Gallery() {
@@ -548,9 +558,9 @@ function Podcast() {
 // ── BLOG ──────────────────────────────────────────────────────────────────
 
 const blogPosts = [
-  { img: '/images/img_06.png', date: 'Nov 2, 2023', title: 'Mayor Eric Adams In Trouble? MTA Assaults & More', desc: 'Breaking down the latest on City Hall politics and the ongoing crisis of assaults against MTA workers.' },
-  { img: '/images/img_07.jpg', date: 'Feb 18, 2022', title: 'Interview With the First Black Woman NFL Referee', desc: 'An exclusive sit-down with trailblazer Maia Chaka on breaking barriers and leading with courage.' },
-  { img: '/images/img_08.jpg', date: 'Jan 16, 2022', title: 'Addressing the MTA Board on Pregnant Workers\' Rights', desc: 'Tramell takes the fight directly to the MTA Board, demanding light duty accommodations for pregnant transit workers.' },
+  { img: blog0, date: 'Nov 2, 2023', title: 'Mayor Eric Adams In Trouble? MTA Assaults & More', desc: 'Breaking down the latest on City Hall politics and the ongoing crisis of assaults against MTA workers.' },
+  { img: blog1, date: 'Feb 18, 2022', title: 'Interview With the First Black Woman NFL Referee', desc: 'An exclusive sit-down with trailblazer Maia Chaka on breaking barriers and leading with courage.' },
+  { img: blog2, date: 'Jan 16, 2022', title: 'Addressing the MTA Board on Pregnant Workers\' Rights', desc: 'Tramell takes the fight directly to the MTA Board, demanding light duty accommodations for pregnant transit workers.' },
 ];
 
 function Blog() {
