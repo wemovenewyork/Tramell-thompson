@@ -372,6 +372,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
 }
 
 @media (max-width: 600px) {
+  .hero-eyebrow { font-size: 0.6rem; letter-spacing: 2px; white-space: nowrap; }
   .hero h1 { font-size: 3rem; }
   .movement-pillars { grid-template-columns: 1fr; }
   .bio-stats { flex-direction: column; gap: 20px; }
