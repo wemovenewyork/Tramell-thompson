@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './index.css';
 
 import heroImg from './assets/img_00.jpg';
-import bioBgImg from './assets/img_01.png';
+import bioBgImg from './assets/img_01.jpg';
 import bioPortraitImg from './assets/img_02.jpg';
 
 // ── HOOKS ──────────────────────────────────────────────────────────────────
