@@ -168,9 +168,8 @@ function Hero({ loaded }: { loaded: boolean }) {
 
 const pressItems = [
   { href: 'https://www.amny.com/nyc-transit/suspect-slashed-train-conductor-bronx-court-07162025/', name: 'amNewYork', type: 'Feature · Jul 2025', icon: <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" /><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z" /></svg> },
+  { href: 'https://www.twulocal100.org/story/transit-must-move-faster-prevent-train-thefts', name: 'TWU Local 100', type: 'Policy Coverage · Aug 2025', icon: <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg> },
   { href: 'https://www.twulocal100.org/story/assailant-sentenced-2-4-years-punching-subway-conductor', name: 'TWU Local 100', type: 'Union Coverage · Feb 2026', icon: <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg> },
-  { href: 'https://www.amny.com/nyc-transit/transit-workers-demand-ouster-twu-honcho-brawled-union-brother/', name: 'amNewYork', type: 'Feature · Mar 2023', icon: <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" /><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z" /></svg> },
-  { href: 'https://podcasts.apple.com/us/podcast/progressive-action/id1114434174', name: 'Apple Podcasts', type: 'Podcast Feature', icon: <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /></svg> },
 ];
 
 function Press() {
