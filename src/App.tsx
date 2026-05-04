@@ -174,11 +174,11 @@ const micIcon = <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 
 const pressItems = [
   { href: 'https://www.amny.com/nyc-transit/suspect-slashed-train-conductor-bronx-court-07162025/', name: 'amNewYork', type: 'Feature · Jul 2025', icon: newspaperIcon },
   { href: 'https://www.yahoo.com/news/articles/mta-worker-seeks-10-million-022248662.html', name: 'Yahoo News', type: 'Feature · Aug 2025', icon: newspaperIcon },
-  { href: 'https://www.twulocal100.org/story/transit-must-move-faster-prevent-train-thefts', name: 'TWU Local 100', type: 'Policy · Aug 2025', icon: megaphoneIcon },
+  { href: 'https://nypost.com/2018/08/15/transit-union-activist-compares-pro-cuomo-mta-workers-to-slaves/', name: 'New York Post', type: 'Feature · Aug 2018', icon: newspaperIcon },
   { href: 'https://www.twulocal100.org/story/dozens-members-pack-bronx-courtroom-support-sister-conductor-who-was-slashed', name: 'TWU Local 100', type: 'Coverage · Jul 2025', icon: megaphoneIcon },
   { href: 'https://firsthandmedia.substack.com/p/republican-mayoral-candidate-curtis', name: 'Firsthand Media', type: 'Speaking Event · Oct 2025', icon: podiumIcon },
   { href: 'https://www.cafecitobreak.org/p/100-days-of-mayor-mamdani-feat-tramell', name: 'Cafecito Break', type: 'Podcast Feature · Apr 2026', icon: micIcon },
-  { href: 'https://iclfi.org/pubs/wv/1184/twfu', name: 'Workers Vanguard', type: 'Feature · Mar 2025', icon: newspaperIcon },
+  { href: 'https://www.nydailynews.com/2022/04/16/brooklyn-net-kyrie-irving-backs-mta-workers-fight-against-covid-vaccine-mandates/', name: 'NY Daily News', type: 'Feature · Apr 2022', icon: newspaperIcon },
   { href: 'https://www.twulocal100.org/story/assailant-sentenced-2-4-years-punching-subway-conductor', name: 'TWU Local 100', type: 'Coverage · Feb 2026', icon: megaphoneIcon },
 ];
 
