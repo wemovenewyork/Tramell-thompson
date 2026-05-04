@@ -397,6 +397,12 @@ function Footer() {
     <footer role="contentinfo">
       <p className="ft-tag">&ldquo;Complaints take a backseat to action.&rdquo;</p>
       <p>&copy; 2026 Tramell Thompson &bull; Progressive Action &bull; Brooklyn, NYC</p>
+      <p className="ft-credit">
+        Designed by{' '}
+        <a href="https://www.instagram.com/wemovenewyork/" target="_blank" rel="noreferrer">@wemovenewyork</a>
+        {' '}&bull; Powered by{' '}
+        <a href="https://futreeng.com" target="_blank" rel="noreferrer">FutreEng.com</a>
+      </p>
     </footer>
   );
 }

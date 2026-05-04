@@ -326,6 +326,9 @@ section { padding: 120px 60px; position: relative; }
 footer { padding: 40px 60px; text-align: center; border-top: 1px solid rgba(192,57,43,0.15); background: var(--navy); }
 footer p { font-size: 0.75rem; color: var(--gray); letter-spacing: 1px; }
 footer .ft-tag { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--white); margin-bottom: 10px; font-style: italic; }
+footer .ft-credit { margin-top: 12px; font-size: 0.7rem; color: var(--gray); }
+footer .ft-credit a { color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(192,57,43,0.4); transition: color 0.3s, border-color 0.3s; }
+footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(--red-bright); }
 
 /* ── LIVE INDICATOR ── */
 .live-indicator { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.3); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 20px; }
