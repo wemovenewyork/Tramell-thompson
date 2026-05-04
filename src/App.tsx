@@ -164,43 +164,6 @@ function Hero({ loaded }: { loaded: boolean }) {
   );
 }
 
-// ── HIGHLIGHTS (credibility on Home) ──────────────────────────────────────
-
-const highlightVideos = [
-  { id: 'jgjEFylzUto', title: 'Mayor Eric Adams In Trouble? MTA Assaults & More', date: 'Nov 2023' },
-  { id: 'cDD2v_b9meE', title: 'Interview With Maia Chaka — First Black Woman NFL Referee', date: 'Feb 2022' },
-  { id: 'rPOq2aBB2y4', title: 'Progressive Action: TWU Local 100 Union Update', date: 'Jan 2022' },
-];
-
-function Highlights() {
-  return (
-    <section className="media">
-      <div className="media-inner">
-        <p className="section-label reveal">Highlights</p>
-        <h2 className="section-title reveal">Featured Clips</h2>
-        <div className="media-grid">
-          {highlightVideos.map((v, i) => (
-            <div key={i} className="media-card reveal">
-              <iframe
-                className="video-embed"
-                src={`https://www.youtube.com/embed/${v.id}`}
-                title={v.title}
-                allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
-              <div className="media-info">
-                <h3>{v.title}</h3>
-                <p>Progressive Action TV &bull; {v.date}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ── PRESS (credibility on Home) ───────────────────────────────────────────
 
 const pressItems = [
@@ -477,7 +440,6 @@ export default function App() {
       <Nav scrolled={scrolled} activeSection={activeSection} />
       <main id="main-content">
         <Hero loaded={heroLoaded} />
-        <Highlights />
         <Press />
         <About />
         <Book showToast={showToast} />
