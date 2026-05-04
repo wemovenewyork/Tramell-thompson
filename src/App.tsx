@@ -225,11 +225,14 @@ function About() {
           <img src={bioPortraitImg} alt="Tramell Thompson" className="bio-image" />
         </div>
         <div className="bio-text reveal">
-          <p className="section-label">About</p>
-          <h2 className="section-title">The Voice of<br />the Workers</h2>
-          <p>In 2015, Tramell Thompson channeled his lifelong dedication to progress and justice into founding Progressive Action — a groundbreaking force that reshapes the boundaries of labor and community advocacy in New York City. As an NYC subway conductor and TWU Local 100 member, Tramell doesn't just talk about change — he lives it on the front lines every single day.</p>
-          <p>Progressive Action has grown into far more than a labor movement. It is the collective voice of transit workers, community members, and everyday New Yorkers demanding fairness, safety, and dignity. From organizing rallies at City Hall to addressing the MTA Board on behalf of pregnant workers denied light duty, Tramell has proven that action speaks louder than words.</p>
-          <p>A political strategist, labor consultant, and media personality, Tramell leads Progressive Action TV — recognized as the largest television platform dedicated to labor issues in New York City — reaching audiences across YouTube, Facebook, and X. His podcast tackles the critical issues of our time: worker safety, union accountability, economic justice, and systemic reform.</p>
+          <p className="section-label">Tramell Thompson</p>
+          <h2 className="section-title">The Voice Of The Workers.<br />The Force Behind The Movement.</h2>
+          <p>Tramell Thompson is a labor strategist, media force, and frontline advocate redefining what worker representation looks like in New York City and beyond.</p>
+          <p>As the founder of Progressive Action, Tramell didn't just join the conversation — he built a platform that amplifies the voices of transit workers, working-class communities, and everyday people too often ignored by those in power. His work sits at the intersection of labor, policy, and media — where real change is driven.</p>
+          <p>With firsthand experience inside New York City Transit, Tramell brings credibility that can't be manufactured. He has stood on the front lines, challenged leadership at the highest levels, and fought for workers facing unsafe conditions, unfair discipline, and systemic neglect. His advocacy isn't theoretical — it's lived, tested, and proven.</p>
+          <p>Through Progressive Action TV, one of the fastest-growing labor-focused media platforms, Tramell has built a direct line to the people — cutting through political noise and delivering unfiltered truth about the realities workers face every day. His voice has become a trusted source for those demanding accountability, transparency, and real reform.</p>
+          <p>From organizing at City Hall to confronting institutional failures head-on, Tramell represents a new era of leadership — one that doesn't ask for permission and doesn't back down from pressure.</p>
+          <p>This isn't advocacy. This is action.</p>
           <div className="bio-stats">
             <div>
               <div className="bio-stat-num" data-count data-target="2015">2015</div>
