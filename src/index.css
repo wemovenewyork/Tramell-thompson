@@ -326,8 +326,9 @@ section { padding: 120px 60px; position: relative; }
 footer { padding: 40px 60px; text-align: center; border-top: 1px solid rgba(192,57,43,0.15); background: var(--navy); }
 footer p { font-size: 0.75rem; color: var(--gray); letter-spacing: 1px; }
 footer .ft-tag { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--white); margin-bottom: 10px; font-style: italic; }
-footer .ft-credit { margin-top: 12px; font-size: 0.7rem; color: var(--gray); }
-footer .ft-credit a { color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(192,57,43,0.4); transition: color 0.3s, border-color 0.3s; }
+footer .ft-credit { margin-top: 12px; font-size: 0.65rem; color: var(--gray); opacity: 0.5; transition: opacity 0.3s; }
+footer .ft-credit:hover { opacity: 0.85; }
+footer .ft-credit a { color: var(--gray); text-decoration: none; border-bottom: 1px solid rgba(138,155,181,0.25); transition: color 0.3s, border-color 0.3s; }
 footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(--red-bright); }
 
 /* ── LIVE INDICATOR ── */
