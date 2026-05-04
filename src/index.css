@@ -255,9 +255,9 @@ section { padding: 120px 60px; position: relative; }
 
 /* ── PRESS ── */
 .press { background: var(--navy); text-align: center; }
-.press-inner { max-width: 900px; margin: 0 auto; }
-.press-logos { display: flex; justify-content: center; align-items: center; gap: 50px; flex-wrap: wrap; }
-.press-item { display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.5; transition: opacity 0.3s; text-decoration: none; }
+.press-inner { max-width: 1100px; margin: 0 auto; }
+.press-logos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: center; align-items: start; gap: 48px 32px; }
+.press-item { display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.5; transition: opacity 0.3s; text-decoration: none; max-width: 200px; }
 .press-item:hover { opacity: 1; }
 .press-name { font-size: 1.05rem; font-weight: 700; color: var(--white); letter-spacing: 1px; font-family: 'Playfair Display', serif; }
 .press-type { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); }
@@ -359,7 +359,7 @@ footer .ft-tag { font-family: 'Playfair Display', serif; font-size: 0.9rem; colo
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .contact-form { grid-template-columns: 1fr; }
-  .press-logos { gap: 30px; }
+  .press-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
   .pricing-grid { grid-template-columns: 1fr; }
   .event-row { grid-template-columns: 80px 1fr; gap: 16px; }
   .event-tag { display: none; }

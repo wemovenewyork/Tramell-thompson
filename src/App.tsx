@@ -166,10 +166,20 @@ function Hero({ loaded }: { loaded: boolean }) {
 
 // ── PRESS (credibility on Home) ───────────────────────────────────────────
 
+const newspaperIcon = <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" /><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z" /></svg>;
+const megaphoneIcon = <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg>;
+const podiumIcon = <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>;
+const micIcon = <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" /><path d="M19 10v2a7 7 0 0 1-14 0v-2" /></svg>;
+
 const pressItems = [
-  { href: 'https://www.amny.com/nyc-transit/suspect-slashed-train-conductor-bronx-court-07162025/', name: 'amNewYork', type: 'Feature · Jul 2025', icon: <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" /><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z" /></svg> },
-  { href: 'https://www.twulocal100.org/story/transit-must-move-faster-prevent-train-thefts', name: 'TWU Local 100', type: 'Policy Coverage · Aug 2025', icon: <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg> },
-  { href: 'https://www.twulocal100.org/story/assailant-sentenced-2-4-years-punching-subway-conductor', name: 'TWU Local 100', type: 'Union Coverage · Feb 2026', icon: <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg> },
+  { href: 'https://www.amny.com/nyc-transit/suspect-slashed-train-conductor-bronx-court-07162025/', name: 'amNewYork', type: 'Feature · Jul 2025', icon: newspaperIcon },
+  { href: 'https://www.yahoo.com/news/articles/mta-worker-seeks-10-million-022248662.html', name: 'Yahoo News', type: 'Feature · Aug 2025', icon: newspaperIcon },
+  { href: 'https://www.twulocal100.org/story/transit-must-move-faster-prevent-train-thefts', name: 'TWU Local 100', type: 'Policy · Aug 2025', icon: megaphoneIcon },
+  { href: 'https://www.twulocal100.org/story/dozens-members-pack-bronx-courtroom-support-sister-conductor-who-was-slashed', name: 'TWU Local 100', type: 'Coverage · Jul 2025', icon: megaphoneIcon },
+  { href: 'https://firsthandmedia.substack.com/p/republican-mayoral-candidate-curtis', name: 'Firsthand Media', type: 'Speaking Event · Oct 2025', icon: podiumIcon },
+  { href: 'https://www.cafecitobreak.org/p/100-days-of-mayor-mamdani-feat-tramell', name: 'Cafecito Break', type: 'Podcast Feature · Apr 2026', icon: micIcon },
+  { href: 'https://iclfi.org/pubs/wv/1184/twfu', name: 'Workers Vanguard', type: 'Feature · Mar 2025', icon: newspaperIcon },
+  { href: 'https://www.twulocal100.org/story/assailant-sentenced-2-4-years-punching-subway-conductor', name: 'TWU Local 100', type: 'Coverage · Feb 2026', icon: megaphoneIcon },
 ];
 
 function Press() {
