@@ -358,6 +358,8 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .bio-grid { grid-template-columns: 1fr; gap: 40px; }
+  .bio-text .section-label, .bio-text .section-title { text-align: center; }
+  .bio-stats { justify-content: center; }
   .services-grid, .blog-grid { grid-template-columns: 1fr; }
   .movement-pillars { grid-template-columns: repeat(2, 1fr); }
   .media-grid { grid-template-columns: 1fr; }
@@ -375,7 +377,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   .hero-eyebrow { font-size: 0.6rem; letter-spacing: 2px; white-space: nowrap; }
   .hero h1 { font-size: 3rem; }
   .movement-pillars { grid-template-columns: 1fr; }
-  .bio-stats { flex-direction: column; gap: 20px; }
+  .bio-stats { flex-direction: column; gap: 20px; align-items: center; text-align: center; }
   .cta-row, .hero-cta { flex-direction: column; align-items: center; }
   .gallery-grid { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; }
