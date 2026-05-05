@@ -134,7 +134,7 @@ function Hero({ loaded }: { loaded: boolean }) {
           <span className="first-name">Tramell</span>
           <span className="last-name">Thompson</span>
         </h1>
-        <p className="hero-tagline">Founder of <span>Progressive Action</span> &bull; NYC</p>
+        <p className="hero-tagline">Founder of <span>Progressive Action</span><span className="tagline-sep"> &bull; </span><span className="tagline-loc">NYC</span></p>
         <div className="hero-cta">
           <a href="#book" className="cta-btn cta-primary" onClick={e => { e.preventDefault(); scrollTo('book'); }}>Book Tramell</a>
           <a href="#about" className="cta-btn cta-secondary" onClick={e => { e.preventDefault(); scrollTo('about'); }}>About Tramell</a>
