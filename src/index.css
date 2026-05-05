@@ -375,6 +375,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
 
 @media (max-width: 600px) {
   .hero-eyebrow { font-size: 0.6rem; letter-spacing: 2px; white-space: nowrap; }
+  .hero-tagline { font-size: 0.7rem; letter-spacing: 1.5px; white-space: nowrap; }
   .hero-tagline .tagline-sep { display: none; }
   .hero-tagline .tagline-loc { display: block; }
   .hero h1 { font-size: 3rem; }
