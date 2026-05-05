@@ -69,6 +69,7 @@ const navLinks: { id: string; label: string }[] = [
   { id: 'home', label: 'Home' },
   { id: 'book', label: 'Book Tramell' },
   { id: 'about', label: 'About' },
+  { id: 'press', label: 'Press' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -184,7 +185,7 @@ const pressItems = [
 
 function Press() {
   return (
-    <section className="press">
+    <section className="press" id="press">
       <div className="press-inner">
         <p className="section-label reveal">As Seen In</p>
         <h2 className="section-title reveal">Press &amp; Media</h2>
