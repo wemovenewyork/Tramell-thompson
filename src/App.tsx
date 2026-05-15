@@ -333,6 +333,7 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
   const [form, setForm] = useState({
     name: '',
     email: '',
+    phone: '',
     organization: '',
     type: 'interview',
     date: '',
@@ -352,7 +353,7 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
     if (!accessKey) {
-      window.location.href = `mailto:ProgressiveAction100@gmail.com?subject=${encodeURIComponent(`Booking request — ${form.name}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nOrganization: ${form.organization}\nType: ${form.type}\nDate: ${form.date}\n\n${form.message}`)}`;
+      window.location.href = `mailto:ProgressiveAction100@gmail.com?subject=${encodeURIComponent(`Booking request — ${form.name}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nOrganization: ${form.organization}\nType: ${form.type}\nDate: ${form.date}\n\n${form.message}`)}`;
       return;
     }
 
@@ -368,6 +369,7 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
           replyto: form.email,
           name: form.name,
           email: form.email,
+          phone: form.phone,
           organization: form.organization,
           type: form.type,
           date: form.date,
@@ -431,6 +433,10 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
               <label htmlFor="bfEmail">Email</label>
               <input type="email" id="bfEmail" placeholder="you@email.com" required value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
               {errors.email && <div className="field-error show">{errors.email}</div>}
+            </div>
+            <div>
+              <label htmlFor="bfPhone">Phone</label>
+              <input type="tel" id="bfPhone" placeholder="(555) 123-4567" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
             </div>
             <div>
               <label htmlFor="bfOrg">Organization / Outlet</label>
