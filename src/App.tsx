@@ -259,6 +259,75 @@ function About() {
 // Drop in a Calendly / scheduling URL here to enable the "Schedule directly" button.
 const SCHEDULING_URL = '';
 
+function DatePicker({ value, onChange }: { value: string; onChange: (date: string) => void }) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const initial = value ? new Date(value + 'T00:00:00') : today;
+  const [view, setView] = useState({ year: initial.getFullYear(), month: initial.getMonth() });
+
+  const firstDay = new Date(view.year, view.month, 1);
+  const daysInMonth = new Date(view.year, view.month + 1, 0).getDate();
+  const startOffset = firstDay.getDay();
+  const monthName = firstDay.toLocaleString('en-US', { month: 'long' });
+
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < startOffset; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+
+  function changeMonth(delta: number) {
+    setView(v => {
+      let m = v.month + delta;
+      let y = v.year;
+      if (m < 0) { m = 11; y--; }
+      if (m > 11) { m = 0; y++; }
+      return { year: y, month: m };
+    });
+  }
+
+  function iso(d: number) {
+    return `${view.year}-${String(view.month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+  }
+
+  function isToday(d: number) {
+    return view.year === today.getFullYear() && view.month === today.getMonth() && d === today.getDate();
+  }
+  function isPast(d: number) {
+    return new Date(view.year, view.month, d) < today;
+  }
+
+  return (
+    <div className="datepicker">
+      <div className="datepicker-header">
+        <button type="button" className="datepicker-nav" onClick={() => changeMonth(-1)} aria-label="Previous month">‹</button>
+        <span className="datepicker-title">{monthName} {view.year}</span>
+        <button type="button" className="datepicker-nav" onClick={() => changeMonth(1)} aria-label="Next month">›</button>
+      </div>
+      <div className="datepicker-weekdays">
+        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((w, i) => <span key={i}>{w}</span>)}
+      </div>
+      <div className="datepicker-grid">
+        {cells.map((d, i) => d === null ? <span key={i} /> : (
+          <button
+            key={i}
+            type="button"
+            className={`datepicker-day${isToday(d) ? ' today' : ''}${value === iso(d) ? ' selected' : ''}`}
+            onClick={() => onChange(iso(d))}
+            disabled={isPast(d)}
+          >
+            {d}
+          </button>
+        ))}
+      </div>
+      {value && (
+        <p className="datepicker-selected">
+          Selected: {new Date(value + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function Book({ showToast }: { showToast: (msg: string) => void }) {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
@@ -379,8 +448,8 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
               </select>
             </div>
             <div className="full-width">
-              <label htmlFor="bfDate">Preferred Date</label>
-              <input type="date" id="bfDate" value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} />
+              <label>Preferred Date</label>
+              <DatePicker value={form.date} onChange={d => setForm(f => ({ ...f, date: d }))} />
             </div>
             <div className="full-width">
               <label htmlFor="bfMessage">Details</label>
