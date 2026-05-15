@@ -271,14 +271,51 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  function handleSubmit(e: React.FormEvent) {
+  const [sending, setSending] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs: Record<string, string> = {};
     if (!form.name.trim()) errs.name = 'Please enter your name';
     if (!form.email.trim() || !form.email.includes('@')) errs.email = 'Please enter a valid email';
     if (!form.message.trim()) errs.message = 'Please add a few details';
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    setSubmitted(true);
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+    if (!accessKey) {
+      window.location.href = `mailto:ProgressiveAction100@gmail.com?subject=${encodeURIComponent(`Booking request — ${form.name}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nOrganization: ${form.organization}\nType: ${form.type}\nDate: ${form.date}\n\n${form.message}`)}`;
+      return;
+    }
+
+    setSending(true);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Booking request — ${form.name}${form.organization ? ` (${form.organization})` : ''}`,
+          from_name: form.name,
+          replyto: form.email,
+          name: form.name,
+          email: form.email,
+          organization: form.organization,
+          type: form.type,
+          date: form.date,
+          message: form.message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        showToast('Could not send. Email ProgressiveAction100@gmail.com directly.');
+      }
+    } catch {
+      showToast('Network error. Email ProgressiveAction100@gmail.com directly.');
+    } finally {
+      setSending(false);
+    }
   }
 
   function copyEmail(e: React.MouseEvent) {
@@ -351,7 +388,7 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
               {errors.message && <div className="field-error show">{errors.message}</div>}
             </div>
             <div className="full-width" style={{ textAlign: 'center' }}>
-              <button type="submit" className="form-submit">Send Booking Request</button>
+              <button type="submit" className="form-submit" disabled={sending}>{sending ? 'Sending…' : 'Send Booking Request'}</button>
             </div>
           </form>
         )}
