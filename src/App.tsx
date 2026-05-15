@@ -349,7 +349,7 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
 
         {submitted ? (
           <div className="form-success visible reveal">
-            <strong>Request sent!</strong> Tramell or his team will get back to you shortly.
+            <strong>Request sent!</strong> Tramell or his team will follow up at <strong>{form.email}</strong> shortly.
           </div>
         ) : (
           <form className="contact-form reveal" onSubmit={handleSubmit}>
