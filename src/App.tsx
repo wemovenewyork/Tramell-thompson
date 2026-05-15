@@ -379,7 +379,7 @@ function FAQ() {
         <p className="section-label reveal" style={{ textAlign: 'center' }}>FAQ</p>
         <h2 className="section-title reveal" style={{ textAlign: 'center' }}>Common Questions</h2>
         {faqs.map((f, i) => (
-          <div key={i} className={`faq-item reveal${openIdx === i ? ' open' : ''}`}>
+          <div key={i} className={`faq-item${openIdx === i ? ' open' : ''}`}>
             <button className="faq-question" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
               {f.q}
               <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" /></svg>
