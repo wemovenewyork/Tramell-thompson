@@ -377,7 +377,7 @@ function Broadcast() {
         </div>
 
         {grid.length > 0 && (
-          <div className="broadcast-grid reveal">
+          <div className="broadcast-grid">
             <div className="broadcast-grid-label">Latest broadcasts</div>
             <div className="broadcast-grid-items">
               {grid.map(v => (
