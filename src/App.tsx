@@ -389,7 +389,7 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
     if (!accessKey) {
-      window.location.href = `mailto:ProgressiveAction100@gmail.com?subject=${encodeURIComponent(`Booking request — ${form.name}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nOrganization: ${form.organization}\nType: ${form.type}\nDate: ${form.date}\n\n${form.message}`)}`;
+      window.location.href = `mailto:booking@TramellThompson.com?subject=${encodeURIComponent(`Booking request — ${form.name}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nOrganization: ${form.organization}\nType: ${form.type}\nDate: ${form.date}\n\n${form.message}`)}`;
       return;
     }
 
@@ -416,10 +416,10 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
       if (data.success) {
         setSubmitted(true);
       } else {
-        showToast('Could not send. Email ProgressiveAction100@gmail.com directly.');
+        showToast('Could not send. Email booking@TramellThompson.com directly.');
       }
     } catch {
-      showToast('Network error. Email ProgressiveAction100@gmail.com directly.');
+      showToast('Network error. Email booking@TramellThompson.com directly.');
     } finally {
       setSending(false);
     }
@@ -427,9 +427,9 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
 
   function copyEmail(e: React.MouseEvent) {
     e.preventDefault();
-    navigator.clipboard.writeText('ProgressiveAction100@gmail.com')
+    navigator.clipboard.writeText('booking@TramellThompson.com')
       .then(() => showToast('Email copied to clipboard!'))
-      .catch(() => { window.location.href = 'mailto:ProgressiveAction100@gmail.com'; });
+      .catch(() => { window.location.href = 'mailto:booking@TramellThompson.com'; });
   }
 
   return (
@@ -450,8 +450,8 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
           </div>
         )}
 
-        <a className="contact-email reveal" onClick={copyEmail} href="mailto:ProgressiveAction100@gmail.com">
-          ProgressiveAction100@gmail.com
+        <a className="contact-email reveal" onClick={copyEmail} href="mailto:booking@TramellThompson.com">
+          booking@TramellThompson.com
         </a>
 
         {submitted ? (
@@ -511,7 +511,7 @@ function Book({ showToast }: { showToast: (msg: string) => void }) {
 // ── FAQ ───────────────────────────────────────────────────────────────────
 
 const faqs = [
-  { q: 'How do I book Tramell for an interview or speaking event?', a: 'Fill out the booking form on this page with the date, format, and details. Tramell or his team will follow up directly to confirm availability and logistics. You can also email ProgressiveAction100@gmail.com.' },
+  { q: 'How do I book Tramell for an interview or speaking event?', a: 'Fill out the booking form on this page with the date, format, and details. Tramell or his team will follow up directly to confirm availability and logistics. You can also email booking@TramellThompson.com.' },
   { q: 'What kinds of events does Tramell speak at?', a: 'Rallies, press conferences, panel discussions, town halls, union meetings, podcasts, news interviews, and community events — anywhere a clear voice on labor, transit, and worker rights is needed.' },
   { q: 'How quickly will I hear back after submitting a request?', a: 'Most booking requests get a response within 1–3 business days. For time-sensitive media bookings, note the deadline in the details field and email directly so it gets flagged.' },
   { q: 'Is Tramell available for travel or remote appearances?', a: 'Yes. Tramell is based in Brooklyn, NYC and regularly does in-person events across the tri-state area, plus remote interviews and podcast appearances anywhere.' },
