@@ -481,7 +481,7 @@ function Topics() {
 
         <ol className="topics-list">
           {topics.map((t, i) => (
-            <li key={t.number} className={`topic-item reveal${openIdx === i ? ' open' : ''}`}>
+            <li key={t.number} className={`topic-item${openIdx === i ? ' open' : ''}`}>
               <button
                 className="topic-question"
                 onClick={() => setOpenIdx(openIdx === i ? null : i)}
