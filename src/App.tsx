@@ -314,7 +314,7 @@ function Broadcast() {
           {!loading && error && (
             <div className="broadcast-player broadcast-error">
               <span className={`broadcast-badge`}>OFF AIR</span>
-              <p>Broadcast feed unavailable.</p>
+              <p>Catch the latest broadcasts on YouTube.</p>
               <a
                 href="https://www.youtube.com/@ProgressiveAction"
                 target="_blank"

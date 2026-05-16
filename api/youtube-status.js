@@ -5,17 +5,23 @@
 // Response shape (always 200 unless a real error):
 //   {
 //     state: 'live' | 'replay' | 'videos',
-//     liveVideo?:    { id, title, thumbnail, viewers, startedAt },
-//     replayVideo?:  { id, title, thumbnail, publishedAt },
-//     latestVideos?: [{ id, title, thumbnail, publishedAt }, ...]
+//     liveVideo?:   { id, title, thumbnail, viewers, startedAt },
+//     replayVideo?: { id, title, thumbnail, publishedAt }
 //   }
 //
 // Env vars required:
 //   YOUTUBE_API_KEY      - YouTube Data API v3 key (server-side only)
 //   YOUTUBE_CHANNEL_ID   - e.g. UCcGj78lfiLuDPxujO2AaHHw
 //
-// Edge cache: 60 seconds. Plenty fresh for "is he live right now?" UX,
-// and keeps us well under the 10k units/day free quota.
+// Quota math: previous implementation used search?eventType=live (100 units per
+// cache miss), which can blow through the 10k/day free quota quickly. This
+// version uses the cheap path — channels.list + playlistItems.list + videos.list
+// = 3 units per cache miss — and infers "live" from snippet.liveBroadcastContent
+// on the most recent upload. Active live broadcasts surface in the uploads
+// playlist with liveBroadcastContent === 'live'.
+//
+// Cache: 15 min fresh + 1 hour stale-while-revalidate on success. Errors are
+// not cached so we recover immediately once quota refreshes (midnight Pacific).
 
 const YT = 'https://www.googleapis.com/youtube/v3';
 
@@ -28,107 +34,96 @@ async function fetchJSON(url) {
   return res.json();
 }
 
-// Find a current live broadcast on the channel (if any).
-async function getLiveVideo(channelId, apiKey) {
-  const url = `${YT}/search?part=snippet&channelId=${channelId}&eventType=live&type=video&maxResults=1&key=${apiKey}`;
-  const data = await fetchJSON(url);
-  const item = data.items?.[0];
-  if (!item) return null;
-
-  const videoId = item.id.videoId;
-
-  // Pull live viewer count + actual start time from videos endpoint.
-  const detailsUrl = `${YT}/videos?part=liveStreamingDetails,snippet&id=${videoId}&key=${apiKey}`;
-  const details = await fetchJSON(detailsUrl);
-  const v = details.items?.[0];
-
-  return {
-    id: videoId,
-    title: item.snippet.title,
-    thumbnail:
-      item.snippet.thumbnails?.maxres?.url ||
-      item.snippet.thumbnails?.high?.url ||
-      item.snippet.thumbnails?.medium?.url ||
-      '',
-    viewers: v?.liveStreamingDetails?.concurrentViewers
-      ? Number(v.liveStreamingDetails.concurrentViewers)
-      : null,
-    startedAt: v?.liveStreamingDetails?.actualStartTime || null,
-  };
-}
-
-// Get the channel's uploads playlist ID (one API call, very cheap: 1 unit).
 async function getUploadsPlaylistId(channelId, apiKey) {
   const url = `${YT}/channels?part=contentDetails&id=${channelId}&key=${apiKey}`;
   const data = await fetchJSON(url);
   return data.items?.[0]?.contentDetails?.relatedPlaylists?.uploads || null;
 }
 
-// Get the most recent N videos via the uploads playlist (1 unit, much cheaper than search).
-async function getLatestVideos(channelId, apiKey, count = 4) {
-  const uploadsId = await getUploadsPlaylistId(channelId, apiKey);
-  if (!uploadsId) return [];
-
-  const url = `${YT}/playlistItems?part=snippet,contentDetails&playlistId=${uploadsId}&maxResults=${count}&key=${apiKey}`;
+async function getMostRecentVideoId(uploadsId, apiKey) {
+  const url = `${YT}/playlistItems?part=contentDetails&playlistId=${uploadsId}&maxResults=1&key=${apiKey}`;
   const data = await fetchJSON(url);
-  return (data.items || []).map(item => ({
-    id: item.contentDetails.videoId,
-    title: item.snippet.title,
+  return data.items?.[0]?.contentDetails?.videoId || null;
+}
+
+async function getVideoDetails(videoId, apiKey) {
+  const url = `${YT}/videos?part=snippet,liveStreamingDetails&id=${videoId}&key=${apiKey}`;
+  const data = await fetchJSON(url);
+  const v = data.items?.[0];
+  if (!v) return null;
+  return {
+    id: videoId,
+    title: v.snippet.title,
     thumbnail:
-      item.snippet.thumbnails?.maxres?.url ||
-      item.snippet.thumbnails?.high?.url ||
-      item.snippet.thumbnails?.medium?.url ||
+      v.snippet.thumbnails?.maxres?.url ||
+      v.snippet.thumbnails?.high?.url ||
+      v.snippet.thumbnails?.medium?.url ||
       '',
-    publishedAt: item.contentDetails.videoPublishedAt || item.snippet.publishedAt,
-  }));
+    isLive: v.snippet.liveBroadcastContent === 'live',
+    viewers: v.liveStreamingDetails?.concurrentViewers
+      ? Number(v.liveStreamingDetails.concurrentViewers)
+      : null,
+    startedAt: v.liveStreamingDetails?.actualStartTime || null,
+    publishedAt: v.snippet.publishedAt,
+  };
 }
 
 export default async function handler(req, res) {
-  // Cache at the edge for 60s; serve stale while revalidating for another 5m.
-  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
-
   const apiKey = process.env.YOUTUBE_API_KEY;
   const channelId = process.env.YOUTUBE_CHANNEL_ID;
 
   if (!apiKey || !channelId) {
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(500).json({
       error: 'Server misconfigured: missing YOUTUBE_API_KEY or YOUTUBE_CHANNEL_ID',
     });
   }
 
   try {
-    // Always fetch latest videos in parallel — we use them whether he's live or not
-    // (offline state shows them; live/replay state may surface them too later).
-    const [liveVideo, latestVideos] = await Promise.all([
-      getLiveVideo(channelId, apiKey),
-      getLatestVideos(channelId, apiKey, 4),
-    ]);
+    const uploadsId = await getUploadsPlaylistId(channelId, apiKey);
+    if (!uploadsId) {
+      res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=3600');
+      return res.status(200).json({ state: 'videos' });
+    }
 
-    if (liveVideo) {
+    const videoId = await getMostRecentVideoId(uploadsId, apiKey);
+    if (!videoId) {
+      res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=3600');
+      return res.status(200).json({ state: 'videos' });
+    }
+
+    const v = await getVideoDetails(videoId, apiKey);
+    res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=3600');
+
+    if (v?.isLive) {
       return res.status(200).json({
         state: 'live',
-        liveVideo,
-        latestVideos,
+        liveVideo: {
+          id: v.id,
+          title: v.title,
+          thumbnail: v.thumbnail,
+          viewers: v.viewers,
+          startedAt: v.startedAt,
+        },
       });
     }
 
-    // No active live stream — show the most recent video as a "replay/latest broadcast"
-    // and the rest as the video grid.
-    const [replay, ...rest] = latestVideos;
-    if (replay) {
+    if (v) {
       return res.status(200).json({
         state: 'replay',
-        replayVideo: replay,
-        latestVideos: rest,
+        replayVideo: {
+          id: v.id,
+          title: v.title,
+          thumbnail: v.thumbnail,
+          publishedAt: v.publishedAt,
+        },
       });
     }
 
-    return res.status(200).json({
-      state: 'videos',
-      latestVideos: [],
-    });
+    return res.status(200).json({ state: 'videos' });
   } catch (err) {
     console.error('[youtube-status] error:', err);
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(500).json({ error: err.message || 'Unknown error' });
   }
 }
