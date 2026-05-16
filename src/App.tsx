@@ -465,6 +465,8 @@ const topicFormats: string[] = [
 ];
 
 function Topics() {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+
   function scrollTo(id: string) {
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' });
@@ -478,10 +480,17 @@ function Topics() {
         <p className="topics-intro reveal">Four lanes where the lived experience, the platform, and the record line up.</p>
 
         <ol className="topics-list">
-          {topics.map(t => (
-            <li key={t.number} className="topic-item reveal">
-              <div className="topic-body">
-                <h3 className="topic-title">{t.title}</h3>
+          {topics.map((t, i) => (
+            <li key={t.number} className={`topic-item reveal${openIdx === i ? ' open' : ''}`}>
+              <button
+                className="topic-question"
+                onClick={() => setOpenIdx(openIdx === i ? null : i)}
+                aria-expanded={openIdx === i}
+              >
+                <span className="topic-title">{t.title}</span>
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" /></svg>
+              </button>
+              <div className="topic-answer">
                 <p className="topic-desc">{t.body}</p>
               </div>
             </li>
