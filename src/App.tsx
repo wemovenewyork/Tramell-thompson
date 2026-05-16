@@ -280,7 +280,6 @@ function Broadcast() {
     state === 'live' ? (data?.liveVideo || null)
     : state === 'replay' ? (data?.replayVideo || null)
     : null;
-  const grid = data?.latestVideos || [];
 
   const isLive = state === 'live';
   const badgeText = isLive ? 'ON AIR' : state === 'replay' ? 'REPLAY' : 'OFF AIR';
@@ -375,34 +374,6 @@ function Broadcast() {
             </div>
           )}
         </div>
-
-        {grid.length > 0 && (
-          <div className="broadcast-grid">
-            <div className="broadcast-grid-label">Latest broadcasts</div>
-            <div className="broadcast-grid-items">
-              {grid.map(v => (
-                <a
-                  key={v.id}
-                  href={`https://www.youtube.com/watch?v=${v.id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="broadcast-card"
-                >
-                  <div
-                    className="broadcast-card-thumb"
-                    style={{ backgroundImage: `url(${v.thumbnail})` }}
-                  >
-                    <span className="broadcast-card-play" aria-hidden="true">▶</span>
-                  </div>
-                  <div className="broadcast-card-body">
-                    <p className="broadcast-card-title">{v.title}</p>
-                    <p className="broadcast-card-date">{formatRelative(v.publishedAt)}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
