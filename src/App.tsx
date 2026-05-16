@@ -70,6 +70,7 @@ const navLinks: { id: string; label: string }[] = [
   { id: 'book', label: 'Book Tramell' },
   { id: 'about', label: 'About' },
   { id: 'topics', label: 'Topics' },
+  { id: 'events', label: 'Events' },
   { id: 'broadcast', label: 'Broadcast' },
   { id: 'press', label: 'Press' },
   { id: 'faq', label: 'FAQ' },
@@ -520,6 +521,53 @@ function Topics() {
   );
 }
 
+// ── EVENTS ────────────────────────────────────────────────────────────────
+
+const events: { title: string; date: string; venue: string; address: string; blurb: string; url: string }[] = [
+  {
+    title: 'MTA vs Everybody BOWLING PARTY Pt. 2',
+    date: '2026-06-19T19:30:00-04:00',
+    venue: 'Woodmere Lanes',
+    address: '948 Broadway, Woodmere, NY',
+    blurb: 'Turning the bowling alley into a club for the night.',
+    url: 'https://www.eventbrite.com/e/mta-vs-everybody-bowling-party-pt2-tickets-1988661303492?aff=oddtdtcreator',
+  },
+];
+
+function Events() {
+  return (
+    <section className="events" id="events" aria-label="Upcoming events">
+      <div className="events-inner">
+        <p className="section-label reveal">Events</p>
+        <h2 className="section-title reveal">Where To Catch <span style={{ color: 'var(--red)' }}>Tramell</span> Next.</h2>
+
+        {events.map((e, i) => {
+          const d = new Date(e.date);
+          const tz = 'America/New_York';
+          const month = d.toLocaleString('en-US', { month: 'short', timeZone: tz }).toUpperCase();
+          const day = d.toLocaleString('en-US', { day: 'numeric', timeZone: tz });
+          const year = d.toLocaleString('en-US', { year: 'numeric', timeZone: tz });
+          const time = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz });
+          return (
+            <div key={i} className="event-row">
+              <div className="event-date">
+                <div className="event-month">{month}</div>
+                <div className="event-day">{day}</div>
+                <div className="event-year">{year}</div>
+              </div>
+              <div className="event-details">
+                <h3>{e.title}</h3>
+                <p>{time} ET · {e.venue} · {e.address}{e.blurb ? ` — ${e.blurb}` : ''}</p>
+              </div>
+              <a href={e.url} target="_blank" rel="noreferrer" className="event-tag">Get Tickets</a>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 // ── BOOK TRAMELL ──────────────────────────────────────────────────────────
 
 // Drop in a Calendly / scheduling URL here to enable the "Schedule directly" button.
@@ -877,6 +925,7 @@ export default function App() {
         <Broadcast />
         <About />
         <Topics />
+        <Events />
         <Book showToast={showToast} />
         <FAQ />
       </main>
