@@ -476,7 +476,7 @@ function Topics() {
     <section className="topics" id="topics" aria-label="Speaking topics">
       <div className="topics-inner">
         <p className="section-label reveal">Speaking Topics</p>
-        <h2 className="section-title reveal">What Tramell Talks About.</h2>
+        <h2 className="section-title reveal">What Tramell <span style={{ color: 'var(--red)' }}>Talks</span> About.</h2>
         <p className="topics-intro reveal">Four lanes where the lived experience, the platform, and the record line up.</p>
 
         <ol className="topics-list">
