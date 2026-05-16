@@ -201,6 +201,10 @@ section { padding: 120px 60px; position: relative; }
 .event-details p { font-size: 0.85rem; color: var(--gray); font-weight: 300; }
 .event-tag { display: inline-block; padding: 6px 16px; border: 1px solid rgba(255,255,255,0.3); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--red); font-weight: 600; transition: all 0.3s; text-decoration: none; }
 .event-tag:hover { background: var(--red); color: var(--navy); border-color: var(--red); }
+.event-row.with-flyer { grid-template-columns: 200px 1fr auto; gap: 36px; padding: 36px 0; align-items: center; }
+.event-flyer { display: block; line-height: 0; overflow: hidden; transition: transform 0.3s ease, opacity 0.3s ease; }
+.event-flyer img { width: 100%; height: auto; display: block; border: none; outline: none; }
+.event-flyer:hover { transform: translateY(-2px); opacity: 0.95; }
 
 /* ── MEDIA ── */
 .media { background: var(--navy); }
@@ -390,6 +394,10 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   .press-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
   .pricing-grid { grid-template-columns: 1fr; }
   .event-row { grid-template-columns: 80px 1fr; gap: 16px; }
+  .event-row.with-flyer { grid-template-columns: 1fr; gap: 16px; padding: 24px 0; }
+  .event-row.with-flyer .event-flyer { max-width: 320px; margin: 0 auto; }
+  .event-row.with-flyer .event-details { text-align: center; }
+  .event-row.with-flyer .event-tag { display: inline-block; justify-self: center; margin-top: 8px; }
   .event-tag { display: none; }
   .yt-banner { padding: 12px 28px; flex-wrap: wrap; }
 }
