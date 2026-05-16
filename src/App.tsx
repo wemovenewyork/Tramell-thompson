@@ -69,6 +69,7 @@ const navLinks: { id: string; label: string }[] = [
   { id: 'home', label: 'Home' },
   { id: 'book', label: 'Book Tramell' },
   { id: 'about', label: 'About' },
+  { id: 'broadcast', label: 'Broadcast' },
   { id: 'press', label: 'Press' },
   { id: 'faq', label: 'FAQ' },
 ];
@@ -198,6 +199,210 @@ function Press() {
             </a>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+// ── BROADCAST (Progressive Action TV) ─────────────────────────────────────
+
+type BroadcastVideo = {
+  id: string;
+  title: string;
+  thumbnail: string;
+  publishedAt?: string;
+  viewers?: number | null;
+  startedAt?: string | null;
+};
+
+type BroadcastData = {
+  state: 'live' | 'replay' | 'videos';
+  liveVideo?: BroadcastVideo;
+  replayVideo?: BroadcastVideo;
+  latestVideos?: BroadcastVideo[];
+};
+
+function formatRelative(iso?: string) {
+  if (!iso) return '';
+  const then = new Date(iso).getTime();
+  const now = Date.now();
+  const diff = Math.max(0, Math.floor((now - then) / 1000));
+  if (diff < 60) return `${diff}s ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  const days = Math.floor(diff / 86400);
+  if (days < 30) return `${days}d ago`;
+  return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function nowTicker() {
+  const d = new Date();
+  return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) + ' ET';
+}
+
+function Broadcast() {
+  const [data, setData] = useState<BroadcastData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [tick, setTick] = useState(nowTicker());
+
+  // Fetch status now + every 60s.
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        const res = await fetch('/api/youtube-status');
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        const json = await res.json();
+        if (!cancelled) {
+          setData(json);
+          setError(null);
+        }
+      } catch (e: any) {
+        if (!cancelled) setError(e?.message || 'Failed to load');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    load();
+    const interval = setInterval(load, 60_000);
+    return () => { cancelled = true; clearInterval(interval); };
+  }, []);
+
+  // Ticker clock.
+  useEffect(() => {
+    const id = setInterval(() => setTick(nowTicker()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const state = data?.state;
+  const featured: BroadcastVideo | null =
+    state === 'live' ? (data?.liveVideo || null)
+    : state === 'replay' ? (data?.replayVideo || null)
+    : null;
+  const grid = data?.latestVideos || [];
+
+  const isLive = state === 'live';
+  const badgeText = isLive ? 'ON AIR' : state === 'replay' ? 'REPLAY' : 'OFF AIR';
+
+  return (
+    <section className="broadcast" id="broadcast" aria-label="Progressive Action TV broadcast">
+      <div className="broadcast-inner">
+        <div className="broadcast-bar">
+          <div className="broadcast-bar-left">
+            <span className={`broadcast-dot${isLive ? ' live' : ''}`} aria-hidden="true" />
+            <span className="broadcast-bar-label">PROGRESSIVE ACTION TV</span>
+          </div>
+          <div className="broadcast-bar-right">
+            <span className="broadcast-clock">{tick}</span>
+          </div>
+        </div>
+
+        <p className="section-label reveal">Broadcast</p>
+        <h2 className="section-title reveal">
+          {isLive ? 'Live Right Now.' : 'On The Record.'}
+        </h2>
+
+        <div className="broadcast-stage reveal">
+          {loading && (
+            <div className="broadcast-player broadcast-loading">
+              <div className="broadcast-loading-bars"><span /><span /><span /></div>
+              <p>Tuning in&hellip;</p>
+            </div>
+          )}
+
+          {!loading && error && (
+            <div className="broadcast-player broadcast-error">
+              <span className={`broadcast-badge`}>OFF AIR</span>
+              <p>Broadcast feed unavailable.</p>
+              <a
+                href="https://www.youtube.com/@ProgressiveAction"
+                target="_blank"
+                rel="noreferrer"
+                className="broadcast-cta"
+              >
+                Watch on YouTube →
+              </a>
+            </div>
+          )}
+
+          {!loading && !error && featured && (
+            <div className="broadcast-player">
+              <span className={`broadcast-badge ${isLive ? 'badge-live' : 'badge-replay'}`}>
+                {isLive && <span className="broadcast-badge-dot" aria-hidden="true" />}
+                {badgeText}
+              </span>
+
+              <div className="broadcast-frame">
+                <iframe
+                  src={`https://www.youtube.com/embed/${featured.id}?autoplay=0&modestbranding=1&rel=0`}
+                  title={featured.title}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+
+              <div className="broadcast-meta">
+                <h3 className="broadcast-title">{featured.title}</h3>
+                <div className="broadcast-submeta">
+                  {isLive && featured.viewers != null && (
+                    <span>{featured.viewers.toLocaleString()} watching</span>
+                  )}
+                  {isLive && featured.startedAt && (
+                    <span>Started {formatRelative(featured.startedAt)}</span>
+                  )}
+                  {!isLive && featured.publishedAt && (
+                    <span>Aired {formatRelative(featured.publishedAt)}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {!loading && !error && !featured && (
+            <div className="broadcast-player broadcast-empty">
+              <span className="broadcast-badge">OFF AIR</span>
+              <p>No broadcasts available yet.</p>
+              <a
+                href="https://www.youtube.com/@ProgressiveAction"
+                target="_blank"
+                rel="noreferrer"
+                className="broadcast-cta"
+              >
+                Subscribe on YouTube →
+              </a>
+            </div>
+          )}
+        </div>
+
+        {grid.length > 0 && (
+          <div className="broadcast-grid reveal">
+            <div className="broadcast-grid-label">Latest broadcasts</div>
+            <div className="broadcast-grid-items">
+              {grid.map(v => (
+                <a
+                  key={v.id}
+                  href={`https://www.youtube.com/watch?v=${v.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="broadcast-card"
+                >
+                  <div
+                    className="broadcast-card-thumb"
+                    style={{ backgroundImage: `url(${v.thumbnail})` }}
+                  >
+                    <span className="broadcast-card-play" aria-hidden="true">▶</span>
+                  </div>
+                  <div className="broadcast-card-body">
+                    <p className="broadcast-card-title">{v.title}</p>
+                    <p className="broadcast-card-date">{formatRelative(v.publishedAt)}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -608,6 +813,7 @@ export default function App() {
       <main id="main-content">
         <Hero loaded={heroLoaded} />
         <Press />
+        <Broadcast />
         <About />
         <Book showToast={showToast} />
         <FAQ />
