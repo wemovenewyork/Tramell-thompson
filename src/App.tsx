@@ -436,23 +436,23 @@ function About() {
 const topics: { number: string; title: string; body: string }[] = [
   {
     number: '01',
-    title: 'The Frontline Of Public Transit',
-    body: 'What it actually means to work the trains. Assault, safety failures, discipline, and the human cost of moving a city. A perspective the press has covered about transit workers — delivered from inside it.',
+    title: 'The Reality Of Public Transit',
+    body: 'What really happens inside New York City transit. Worker assaults, unsafe conditions, discipline, political pressure, and the realities frontline workers face every single day — from someone who actually lived it.',
   },
   {
     number: '02',
-    title: 'Building A Labor Media Platform',
-    body: 'How Progressive Action TV grew from a worker with a phone into one of the fastest-growing labor-focused media outlets in the country. The strategy, the lessons, and the case for why labor needs its own media.',
+    title: 'Challenging Power & Accountability',
+    body: 'From the MTA to City Hall to union leadership. Using media, organizing, and public pressure to expose issues affecting workers, riders, and working-class communities — and forcing institutions to answer for them.',
   },
   {
     number: '03',
-    title: 'Worker Voice vs. Union Politics',
-    body: 'The tension between rank-and-file workers and union leadership — and how to organize when the institution meant to represent you becomes part of the problem.',
+    title: 'Workers vs. The Machine',
+    body: 'The disconnect between union leadership and rank-and-file workers. Organizing, retaliation, accountability, and what happens when the institution meant to protect workers becomes part of the problem.',
   },
   {
     number: '04',
-    title: 'Holding Power Accountable',
-    body: 'From MTA leadership to City Hall to elected officials. How a frontline worker confronts institutions built to ignore him — and actually shifts policy in the process.',
+    title: 'Building Independent Labor Media',
+    body: 'How Progressive Action TV grew from a worker with a phone into one of the fastest-growing labor-focused media platforms online — proving workers no longer need traditional media to tell their stories.',
   },
 ];
 
@@ -480,7 +480,6 @@ function Topics() {
         <ol className="topics-list">
           {topics.map(t => (
             <li key={t.number} className="topic-item reveal">
-              <span className="topic-num">{t.number}</span>
               <div className="topic-body">
                 <h3 className="topic-title">{t.title}</h3>
                 <p className="topic-desc">{t.body}</p>
