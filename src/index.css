@@ -434,26 +434,28 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
 }
 
 /* ── BROADCAST (Progressive Action TV) ──────────────────────────────────── */
-/* Self-contained broadcast newsroom palette — intentionally distinct from
-   the rest of the site to feel like a "module embedded in the page". */
+/* Dark newsroom — sits inside the site's navy+gold palette. Red is reserved
+   strictly for live/replay status so it actually means something. */
 
 .broadcast {
   --bc-red: #C8102E;
   --bc-red-deep: #8E0A20;
-  --bc-bone: #F4F1EA;
-  --bc-bone-2: #E8E3D7;
-  --bc-ink: #0B0B0B;
-  --bc-ink-2: #2A2A2A;
-  --bc-steel: #5A6068;
-  --bc-rule: #1A1A1A;
+  --bc-bg: var(--navy);
+  --bc-surface: var(--navy-mid);
+  --bc-surface-2: var(--navy-light);
+  --bc-ink: var(--white);
+  --bc-muted: rgba(245, 245, 245, 0.62);
+  --bc-gold: var(--red);
+  --bc-gold-dim: rgba(201, 169, 97, 0.35);
+  --bc-rule: rgba(245, 245, 245, 0.12);
 
   position: relative;
-  background: var(--bc-bone);
+  background: var(--bc-bg);
   color: var(--bc-ink);
   padding: 100px 24px 110px;
   font-family: 'Source Sans 3', system-ui, sans-serif;
-  border-top: 4px solid var(--bc-ink);
-  border-bottom: 4px solid var(--bc-ink);
+  border-top: 1px solid var(--bc-rule);
+  border-bottom: 1px solid var(--bc-rule);
 }
 
 .broadcast-inner {
@@ -466,9 +468,9 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1.5px solid var(--bc-ink);
-  background: var(--bc-ink);
-  color: var(--bc-bone);
+  border: 1px solid var(--bc-gold-dim);
+  background: var(--bc-surface);
+  color: var(--bc-ink);
   padding: 10px 16px;
   margin-bottom: 32px;
   font-family: 'JetBrains Mono', 'Courier New', monospace;
@@ -477,13 +479,13 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   text-transform: uppercase;
 }
 .broadcast-bar-left { display: flex; align-items: center; gap: 10px; }
-.broadcast-bar-right { color: var(--bc-bone); opacity: 0.85; }
-.broadcast-bar-label { font-weight: 700; }
+.broadcast-bar-right { color: var(--bc-gold); }
+.broadcast-bar-label { font-weight: 700; color: var(--bc-gold); }
 .broadcast-clock { font-variant-numeric: tabular-nums; }
 
 .broadcast-dot {
   width: 10px; height: 10px; border-radius: 50%;
-  background: var(--bc-steel);
+  background: var(--bc-muted);
   display: inline-block;
 }
 .broadcast-dot.live {
@@ -499,7 +501,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
 
 /* Section heading — newsroom condensed treatment */
 .broadcast .section-label {
-  color: var(--bc-red);
+  color: var(--bc-gold);
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 12px;
   font-weight: 700;
@@ -523,9 +525,9 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
 
 .broadcast-player {
   position: relative;
-  background: var(--bc-ink);
-  color: var(--bc-bone);
-  border: 2px solid var(--bc-ink);
+  background: var(--bc-surface);
+  color: var(--bc-ink);
+  border: 1px solid var(--bc-gold-dim);
   overflow: hidden;
 }
 
@@ -558,9 +560,9 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 700;
-  background: var(--bc-bone);
-  color: var(--bc-ink);
-  border: 1.5px solid var(--bc-ink);
+  background: var(--bc-surface);
+  color: var(--bc-gold);
+  border: 1px solid var(--bc-gold-dim);
 }
 .broadcast-badge.badge-live {
   background: var(--bc-red);
@@ -568,8 +570,9 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   border-color: var(--bc-red-deep);
 }
 .broadcast-badge.badge-replay {
-  background: var(--bc-bone);
-  color: var(--bc-ink);
+  background: rgba(11, 11, 11, 0.85);
+  color: var(--bc-gold);
+  backdrop-filter: blur(4px);
 }
 .broadcast-badge-dot {
   width: 8px; height: 8px; border-radius: 50%; background: #fff;
@@ -583,9 +586,9 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
 /* Featured video metadata strip */
 .broadcast-meta {
   padding: 22px 24px 26px;
-  background: var(--bc-ink);
-  color: var(--bc-bone);
-  border-top: 1.5px solid var(--bc-red);
+  background: var(--bc-surface);
+  color: var(--bc-ink);
+  border-top: 1px solid var(--bc-gold-dim);
 }
 .broadcast-title {
   font-family: 'Oswald', 'Source Sans 3', sans-serif;
@@ -595,7 +598,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   margin: 0 0 10px;
   letter-spacing: -0.005em;
   text-transform: none;
-  color: var(--bc-bone);
+  color: var(--bc-ink);
 }
 .broadcast-submeta {
   display: flex; gap: 18px; flex-wrap: wrap;
@@ -603,8 +606,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--bc-bone-2);
-  opacity: 0.85;
+  color: var(--bc-muted);
 }
 .broadcast-submeta span { display: inline-flex; align-items: center; }
 
@@ -613,20 +615,20 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   aspect-ratio: 16 / 9;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 18px;
-  background: linear-gradient(135deg, var(--bc-ink) 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, var(--bc-surface) 0%, var(--bc-surface-2) 100%);
 }
 .broadcast-loading p {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--bc-bone-2);
+  color: var(--bc-muted);
   margin: 0;
 }
 .broadcast-loading-bars { display: flex; gap: 6px; align-items: flex-end; height: 36px; }
 .broadcast-loading-bars span {
   display: block; width: 6px;
-  background: var(--bc-red);
+  background: var(--bc-gold);
   animation: bc-bars 1s ease-in-out infinite;
 }
 .broadcast-loading-bars span:nth-child(1) { animation-delay: 0s;    height: 50%; }
@@ -644,6 +646,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 16px;
   text-align: center; padding: 32px;
+  background: var(--bc-surface);
 }
 .broadcast-error p,
 .broadcast-empty p {
@@ -651,29 +654,29 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--bc-bone-2);
+  color: var(--bc-muted);
   margin: 0;
 }
 .broadcast-cta {
   display: inline-block;
   padding: 12px 22px;
-  background: var(--bc-red);
-  color: #fff;
+  background: transparent;
+  color: var(--bc-gold);
   text-decoration: none;
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 700;
-  border: 1.5px solid var(--bc-red-deep);
-  transition: background 0.18s ease;
+  border: 1px solid var(--bc-gold);
+  transition: background 0.18s ease, color 0.18s ease;
 }
-.broadcast-cta:hover { background: var(--bc-red-deep); }
+.broadcast-cta:hover { background: var(--bc-gold); color: var(--navy); }
 
 /* Latest broadcasts grid */
 .broadcast-grid {
   margin-top: 56px;
-  border-top: 1.5px solid var(--bc-ink);
+  border-top: 1px solid var(--bc-rule);
   padding-top: 28px;
 }
 .broadcast-grid-label {
@@ -682,7 +685,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--bc-red);
+  color: var(--bc-gold);
   margin-bottom: 20px;
 }
 .broadcast-grid-items {
@@ -699,15 +702,17 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
 }
 .broadcast-card:hover { transform: translateY(-3px); }
 .broadcast-card:hover .broadcast-card-play { opacity: 1; transform: scale(1); }
+.broadcast-card:hover .broadcast-card-thumb { border-color: var(--bc-gold); }
 .broadcast-card-thumb {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background-color: #1a1a1a;
+  background-color: var(--bc-surface-2);
   background-size: cover;
   background-position: center;
-  border: 1.5px solid var(--bc-ink);
+  border: 1px solid var(--bc-gold-dim);
   display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.18s ease;
 }
 .broadcast-card-play {
   width: 54px; height: 54px;
@@ -740,7 +745,7 @@ footer .ft-credit a:hover { color: var(--red-bright); border-bottom-color: var(-
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bc-steel);
+  color: var(--bc-muted);
   margin: 0;
 }
 
